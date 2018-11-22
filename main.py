@@ -12,8 +12,8 @@ def init(cascPath,hatPath):
 
 #here goes the main logic
 def main():
-    faceCascade, hatImg, video_capture = init(\
-        "cascades/haarcascade_frontalface_default.xml",\
+    faceCascade, hatImg, video_capture = init(          \
+        "cascades/haarcascade_frontalface_default.xml", \
         "hat.png")
     
     #main loop
