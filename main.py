@@ -5,7 +5,7 @@ import sys
 
 def init(cascPath,hatPath):
     faceCascade = cv2.CascadeClassifier(cascPath) 
-    hatImg = cv2.imread("hat.png", cv2.IMREAD_UNCHANGED) #read hat image with alpha channel
+    hatImg = cv2.imread(hatPath, cv2.IMREAD_UNCHANGED) #read hat image with alpha channel
     video_capture = cv2.VideoCapture(0) #grab the camera 
     return faceCascade, hatImg, video_capture
 
@@ -14,7 +14,7 @@ def init(cascPath,hatPath):
 def main():
     faceCascade, hatImg, video_capture = init(          \
         "cascades/haarcascade_frontalface_default.xml", \
-        "hat.png")
+        "hat_big.png")
     
     #main loop
     while True:
@@ -30,11 +30,11 @@ def main():
         )
         print(faces)
         for (x1, y1, w1, h1) in faces:
-            scaled = cv2.resize(hatImg, (0,0), fx=w1/75,fy=w1/75)
+            scaled = cv2.resize(hatImg, (0,0), fx=1.5 * w1/hatImg.shape[1],fy=1.5*w1/hatImg.shape[0])
             alpha_s = scaled[:, :, 3] / 255.0
             alpha_l = 1.0 - alpha_s
-            y_shift = h1//2 - h1//8
-            x_shift = -w1//6
+            y_shift = 3* h1//8
+            x_shift = -w1//4
             try:
                 for c in range(0, 3):
                     frame[y1 - scaled.shape[0] + y_shift : y1 + y_shift, x1 + x_shift: x1 + scaled.shape[1] + x_shift, c] = \
