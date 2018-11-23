@@ -26,7 +26,7 @@ def process_frame(cascade, smallImg, frame):
     faces, num_of_faces = cascade.detectMultiScale2(
         gray,
         scaleFactor=1.1,
-        minNeighbors=5,
+        minNeighbors=9,
         minSize=(30, 30)
     )
     #print(faces)
